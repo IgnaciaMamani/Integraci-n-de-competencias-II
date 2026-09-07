@@ -63,7 +63,7 @@ El administrador puede eliminar usuarios mediante desactivacion logica (`activo 
 
 ### Registro de ingreso desde administrador
 
-El administrador puede registrar manualmente la hora de ingreso de un usuario, indicando fecha y hora.
+El administrador puede registrar manualmente el ingreso de un usuario indicando la fecha. La hora se toma automaticamente desde el sistema.
 
 ## Roles
 
