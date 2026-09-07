@@ -10,6 +10,7 @@ import entidades.Usuario;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import javax.swing.JComboBox;
@@ -25,6 +26,8 @@ public class VentanaAdministrador extends JFrame {
     private final ReportesDatos reportesDatos = new ReportesDatos();
     private final UsuariosDatos usuariosDatos = new UsuariosDatos();
     private final AsistenciasDatos asistenciasDatos = new AsistenciasDatos();
+    private final DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("HH:mm:ss");
+    private final javax.swing.Timer reloj = new javax.swing.Timer(1000, event -> actualizarHora());
 
     public VentanaAdministrador() {
         this(new Usuario(0, "Administrador", "", "ADMIN"));
@@ -38,6 +41,8 @@ public class VentanaAdministrador extends JFrame {
         setLocationRelativeTo(null);
         etiquetaUsuario.setText("Administrador: " + usuario.getNombre());
         tablaReporte.setAutoCreateRowSorter(true);
+        actualizarHora();
+        reloj.start();
     }
 
     @SuppressWarnings("unchecked")
@@ -45,6 +50,7 @@ public class VentanaAdministrador extends JFrame {
     private void initComponents() {
 
         etiquetaUsuario = new javax.swing.JLabel();
+        etiquetaHora = new javax.swing.JLabel();
         tituloReporte = new javax.swing.JLabel();
         panelTabla = new javax.swing.JScrollPane();
         tablaReporte = new javax.swing.JTable();
@@ -61,6 +67,9 @@ public class VentanaAdministrador extends JFrame {
         etiquetaUsuario.setFont(etiquetaUsuario.getFont().deriveFont(16f));
         etiquetaUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etiquetaUsuario.setText("Administrador:");
+
+        etiquetaHora.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        etiquetaHora.setText("Hora actual: 00:00:00");
 
         tituloReporte.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tituloReporte.setText("Seleccione un reporte");
@@ -101,6 +110,7 @@ public class VentanaAdministrador extends JFrame {
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(etiquetaUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(etiquetaHora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(tituloReporte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelTabla)
                     .addGroup(layout.createSequentialGroup()
@@ -123,6 +133,8 @@ public class VentanaAdministrador extends JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(etiquetaUsuario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(etiquetaHora)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tituloReporte)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -165,6 +177,10 @@ public class VentanaAdministrador extends JFrame {
         cerrarSesion();
     }//GEN-LAST:event_botonCerrarActionPerformed
 
+    private void actualizarHora() {
+        etiquetaHora.setText("Hora actual: " + LocalTime.now().format(formatoHora));
+    }
+
     private void cargarAtrasos() {
         cargarReporte("Reporte de atrasos: entradas posteriores a 09:30", () -> reportesDatos.obtenerAtrasos());
     }
@@ -201,7 +217,6 @@ public class VentanaAdministrador extends JFrame {
 
             JComboBox<Usuario> listaUsuarios = new JComboBox<>(usuarios.toArray(new Usuario[0]));
             JTextField campoFecha = new JTextField(LocalDate.now().toString(), 12);
-            JTextField campoHora = new JTextField("09:00", 8);
 
             JPanel panel = new JPanel(new java.awt.GridBagLayout());
             java.awt.GridBagConstraints posicion = new java.awt.GridBagConstraints();
@@ -210,7 +225,6 @@ public class VentanaAdministrador extends JFrame {
 
             agregarFila(panel, posicion, 0, "Usuario:", listaUsuarios);
             agregarFila(panel, posicion, 1, "Fecha:", campoFecha);
-            agregarFila(panel, posicion, 2, "Hora ingreso:", campoHora);
 
             int opcion = JOptionPane.showConfirmDialog(this, panel, "Registrar ingreso", JOptionPane.OK_CANCEL_OPTION);
             if (opcion != JOptionPane.OK_OPTION) {
@@ -219,11 +233,11 @@ public class VentanaAdministrador extends JFrame {
 
             Usuario seleccionado = (Usuario) listaUsuarios.getSelectedItem();
             LocalDate fecha = LocalDate.parse(campoFecha.getText().trim());
-            LocalTime hora = LocalTime.parse(campoHora.getText().trim());
+            LocalTime hora = LocalTime.now();
             asistenciasDatos.registrarIngresoManual(seleccionado.getId(), fecha, hora);
             JOptionPane.showMessageDialog(this, "Ingreso guardado.");
         } catch (DateTimeParseException e) {
-            JOptionPane.showMessageDialog(this, "Fecha u hora mal escrita.");
+            JOptionPane.showMessageDialog(this, "Fecha mal escrita.");
         } catch (SQLException e) {
             if ("MARCA_DUPLICADA".equals(e.getSQLState())) {
                 JOptionPane.showMessageDialog(this, "Ese ingreso ya esta guardado.");
@@ -257,6 +271,12 @@ public class VentanaAdministrador extends JFrame {
         dispose();
     }
 
+    @Override
+    public void dispose() {
+        reloj.stop();
+        super.dispose();
+    }
+
     private interface CargaReporte {
         DefaultTableModel cargar() throws SQLException;
     }
@@ -268,6 +288,7 @@ public class VentanaAdministrador extends JFrame {
     private javax.swing.JButton botonIngreso;
     private javax.swing.JButton botonSalidas;
     private javax.swing.JButton botonUsuarios;
+    private javax.swing.JLabel etiquetaHora;
     private javax.swing.JLabel etiquetaUsuario;
     private javax.swing.JScrollPane panelTabla;
     private javax.swing.JTable tablaReporte;

@@ -28,6 +28,7 @@
               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="etiquetaUsuario" max="32767" attributes="0"/>
+                  <Component id="etiquetaHora" max="32767" attributes="0"/>
                   <Component id="tituloReporte" max="32767" attributes="0"/>
                   <Component id="panelTabla" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
@@ -55,6 +56,8 @@
               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               <Component id="etiquetaUsuario" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
+              <Component id="etiquetaHora" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="tituloReporte" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="panelTabla" pref="319" max="32767" attributes="0"/>
@@ -80,6 +83,12 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="Administrador:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="etiquetaHora">
+      <Properties>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="text" type="java.lang.String" value="Hora actual: 00:00:00"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="tituloReporte">

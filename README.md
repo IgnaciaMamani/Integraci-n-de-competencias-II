@@ -55,7 +55,7 @@ El administrador puede eliminar usuarios dejandolos inactivos. Se usa eliminacio
 
 ### Registro de ingreso desde administrador
 
-El administrador puede registrar una hora de ingreso para un usuario, indicando fecha y hora.
+El administrador puede registrar el ingreso de un usuario indicando la fecha. La hora se toma automaticamente desde el sistema.
 
 ## Credenciales de prueba
 
