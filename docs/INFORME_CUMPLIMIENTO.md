@@ -61,13 +61,15 @@ El administrador puede modificar datos de usuarios existentes y cambiar contrase
 
 El administrador puede eliminar usuarios mediante desactivacion logica (`activo = 0`). Esto conserva el historial y evita eliminar asistencias ya registradas.
 
-### Registro de ingreso desde administrador
+### Panel de administrador
 
-El administrador puede registrar manualmente el ingreso de un usuario indicando la fecha. La hora se toma automaticamente desde el sistema.
+Al iniciar sesion como administrador se muestra una ventana simple con tres botones: registrar asistencia, registrar salida y gestionar usuarios.
+
+El boton Gestionar usuarios abre la ventana de administracion. En esa ventana aparece la gestion de usuarios y el apartado Control de asistencia con los reportes.
 
 ## Roles
 
-- `ADMIN`: accede a los reportes.
+- `ADMIN`: registra asistencia, registra salida y accede a la gestion de usuarios con control de asistencia.
 - `USUARIO`: marca entrada y salida.
 
 ## Tablas de base de datos

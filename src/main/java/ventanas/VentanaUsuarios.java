@@ -2,10 +2,13 @@ package ventanas;
 
 import apoyo.Mensajes;
 import apoyo.PanelFondo;
+import datos.ReportesDatos;
 import datos.UsuariosDatos;
 import entidades.Usuario;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -13,10 +16,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 public class VentanaUsuarios extends JFrame {
     private final Usuario administradorActual;
     private final UsuariosDatos usuariosDatos = new UsuariosDatos();
+    private final ReportesDatos reportesDatos = new ReportesDatos();
 
     public VentanaUsuarios() {
         this(new Usuario(0, "Administrador", "", "ADMIN"), false);
@@ -30,9 +35,10 @@ public class VentanaUsuarios extends JFrame {
         this.administradorActual = administradorActual;
         setContentPane(new PanelFondo("/imagenes/fondo_usuarios.jpg"));
         initComponents();
-        setSize(780, 425);
+        setSize(840, 620);
         setLocationRelativeTo(null);
         tablaUsuarios.setAutoCreateRowSorter(true);
+        tablaReporte.setAutoCreateRowSorter(true);
         if (cargarDatos) {
             cargarUsuarios();
         }
@@ -50,9 +56,15 @@ public class VentanaUsuarios extends JFrame {
         botonEliminar = new javax.swing.JButton();
         botonActualizar = new javax.swing.JButton();
         botonCerrar = new javax.swing.JButton();
+        tituloControl = new javax.swing.JLabel();
+        panelTablaReporte = new javax.swing.JScrollPane();
+        tablaReporte = new javax.swing.JTable();
+        botonAtrasos = new javax.swing.JButton();
+        botonSalidas = new javax.swing.JButton();
+        botonInasistencias = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Gestion de usuarios");
+        setTitle("Administracion");
 
         tituloVentana.setFont(tituloVentana.getFont().deriveFont(16f));
         tituloVentana.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -91,6 +103,29 @@ public class VentanaUsuarios extends JFrame {
         botonCerrar.setText("Cerrar");
         botonCerrar.addActionListener(this::botonCerrarActionPerformed);
 
+        tituloControl.setFont(tituloControl.getFont().deriveFont(16f));
+        tituloControl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        tituloControl.setText("Control de asistencia");
+
+        tablaReporte.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        panelTablaReporte.setViewportView(tablaReporte);
+
+        botonAtrasos.setText("Reporte de atrasos");
+        botonAtrasos.addActionListener(this::botonAtrasosActionPerformed);
+
+        botonSalidas.setText("Reporte de salidas anticipadas");
+        botonSalidas.addActionListener(this::botonSalidasActionPerformed);
+
+        botonInasistencias.setText("Reporte de inasistencias");
+        botonInasistencias.addActionListener(this::botonInasistenciasActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -110,7 +145,16 @@ public class VentanaUsuarios extends JFrame {
                         .addComponent(botonActualizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(botonCerrar)
-                        .addGap(0, 165, Short.MAX_VALUE)))
+                        .addGap(0, 225, Short.MAX_VALUE))
+                    .addComponent(tituloControl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelTablaReporte)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(botonAtrasos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(botonSalidas)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(botonInasistencias)
+                        .addGap(0, 294, Short.MAX_VALUE)))
                 .addGap(14, 14, 14))
         );
         layout.setVerticalGroup(
@@ -119,7 +163,7 @@ public class VentanaUsuarios extends JFrame {
                 .addGap(14, 14, 14)
                 .addComponent(tituloVentana)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
+                .addComponent(panelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonCrear)
@@ -127,6 +171,15 @@ public class VentanaUsuarios extends JFrame {
                     .addComponent(botonEliminar)
                     .addComponent(botonActualizar)
                     .addComponent(botonCerrar))
+                .addGap(18, 18, 18)
+                .addComponent(tituloControl)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panelTablaReporte, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonAtrasos)
+                    .addComponent(botonSalidas)
+                    .addComponent(botonInasistencias))
                 .addGap(14, 14, 14))
         );
 
@@ -153,9 +206,49 @@ public class VentanaUsuarios extends JFrame {
         dispose();
     }//GEN-LAST:event_botonCerrarActionPerformed
 
+    private void botonAtrasosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAtrasosActionPerformed
+        cargarReporte("Reporte de atrasos", () -> reportesDatos.obtenerAtrasos());
+    }//GEN-LAST:event_botonAtrasosActionPerformed
+
+    private void botonSalidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalidasActionPerformed
+        cargarReporte("Reporte de salidas anticipadas", () -> reportesDatos.obtenerSalidasAnticipadas());
+    }//GEN-LAST:event_botonSalidasActionPerformed
+
+    private void botonInasistenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInasistenciasActionPerformed
+        cargarInasistencias();
+    }//GEN-LAST:event_botonInasistenciasActionPerformed
+
     private void cargarUsuarios() {
         try {
             tablaUsuarios.setModel(usuariosDatos.obtenerTablaUsuarios());
+        } catch (SQLException e) {
+            Mensajes.mostrarErrorConexion(this);
+        }
+    }
+
+    private void cargarInasistencias() {
+        String textoFecha = JOptionPane.showInputDialog(
+                this,
+                "Ingrese fecha a consultar con formato AAAA-MM-DD:",
+                LocalDate.now().toString()
+        );
+        if (textoFecha == null) {
+            return;
+        }
+
+        try {
+            LocalDate fecha = LocalDate.parse(textoFecha.trim());
+            cargarReporte("Reporte de inasistencias", () -> reportesDatos.obtenerInasistencias(fecha));
+        } catch (DateTimeParseException e) {
+            JOptionPane.showMessageDialog(this, "Fecha mal escrita.");
+        }
+    }
+
+    private void cargarReporte(String titulo, CargaReporte cargaReporte) {
+        try {
+            DefaultTableModel modelo = cargaReporte.cargar();
+            tablaReporte.setModel(modelo);
+            tituloControl.setText(titulo + " (" + modelo.getRowCount() + " registros)");
         } catch (SQLException e) {
             Mensajes.mostrarErrorConexion(this);
         }
@@ -314,14 +407,24 @@ public class VentanaUsuarios extends JFrame {
         }
     }
 
+    private interface CargaReporte {
+        DefaultTableModel cargar() throws SQLException;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonActualizar;
+    private javax.swing.JButton botonAtrasos;
     private javax.swing.JButton botonCerrar;
     private javax.swing.JButton botonCrear;
     private javax.swing.JButton botonEliminar;
+    private javax.swing.JButton botonInasistencias;
     private javax.swing.JButton botonModificar;
+    private javax.swing.JButton botonSalidas;
     private javax.swing.JScrollPane panelTabla;
+    private javax.swing.JScrollPane panelTablaReporte;
+    private javax.swing.JTable tablaReporte;
     private javax.swing.JTable tablaUsuarios;
+    private javax.swing.JLabel tituloControl;
     private javax.swing.JLabel tituloVentana;
     // End of variables declaration//GEN-END:variables
 }
