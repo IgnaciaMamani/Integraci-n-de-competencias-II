@@ -29,6 +29,7 @@
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="etiquetaBienvenida" max="32767" attributes="0"/>
+                  <Component id="etiquetaHora" max="32767" attributes="0"/>
                   <Component id="botonCerrar" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="botonEntrada" pref="171" max="32767" attributes="0"/>
@@ -45,7 +46,9 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Component id="etiquetaBienvenida" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="etiquetaHora" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="botonEntrada" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="botonSalida" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -65,6 +68,12 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="Usuario:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="etiquetaHora">
+      <Properties>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="text" type="java.lang.String" value="Hora actual: 00:00:00"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="botonEntrada">
