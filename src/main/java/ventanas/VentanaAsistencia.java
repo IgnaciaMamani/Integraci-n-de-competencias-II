@@ -6,12 +6,17 @@ import datos.AsistenciasDatos;
 import entidades.Usuario;
 
 import java.sql.SQLException;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 public class VentanaAsistencia extends JFrame {
     private final Usuario usuario;
     private final AsistenciasDatos asistenciasDatos = new AsistenciasDatos();
+    private final DateTimeFormatter formatoHora = DateTimeFormatter.ofPattern("HH:mm:ss");
+    private final Timer reloj = new Timer(1000, event -> actualizarHora());
 
     public VentanaAsistencia() {
         this(new Usuario(0, "Usuario", "", "USUARIO"));
@@ -24,6 +29,8 @@ public class VentanaAsistencia extends JFrame {
         setSize(395, 210);
         setLocationRelativeTo(null);
         etiquetaBienvenida.setText("Usuario: " + usuario.getNombre());
+        actualizarHora();
+        reloj.start();
     }
 
     @SuppressWarnings("unchecked")
@@ -31,6 +38,7 @@ public class VentanaAsistencia extends JFrame {
     private void initComponents() {
 
         etiquetaBienvenida = new javax.swing.JLabel();
+        etiquetaHora = new javax.swing.JLabel();
         botonEntrada = new javax.swing.JButton();
         botonSalida = new javax.swing.JButton();
         botonCerrar = new javax.swing.JButton();
@@ -42,6 +50,9 @@ public class VentanaAsistencia extends JFrame {
         etiquetaBienvenida.setFont(etiquetaBienvenida.getFont().deriveFont(16f));
         etiquetaBienvenida.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etiquetaBienvenida.setText("Usuario:");
+
+        etiquetaHora.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        etiquetaHora.setText("Hora actual: 00:00:00");
 
         botonEntrada.setText("Marcar entrada");
         botonEntrada.addActionListener(this::botonEntradaActionPerformed);
@@ -60,6 +71,7 @@ public class VentanaAsistencia extends JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(etiquetaBienvenida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(etiquetaHora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(botonCerrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(botonEntrada, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
@@ -72,7 +84,9 @@ public class VentanaAsistencia extends JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(etiquetaBienvenida)
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(etiquetaHora)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonEntrada)
                     .addComponent(botonSalida))
@@ -96,6 +110,10 @@ public class VentanaAsistencia extends JFrame {
         cerrarSesion();
     }//GEN-LAST:event_botonCerrarActionPerformed
 
+    private void actualizarHora() {
+        etiquetaHora.setText("Hora actual: " + LocalTime.now().format(formatoHora));
+    }
+
     private void marcar(String tipo) {
         try {
             asistenciasDatos.marcarAsistencia(usuario.getId(), tipo);
@@ -114,10 +132,17 @@ public class VentanaAsistencia extends JFrame {
         dispose();
     }
 
+    @Override
+    public void dispose() {
+        reloj.stop();
+        super.dispose();
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonCerrar;
     private javax.swing.JButton botonEntrada;
     private javax.swing.JButton botonSalida;
     private javax.swing.JLabel etiquetaBienvenida;
+    private javax.swing.JLabel etiquetaHora;
     // End of variables declaration//GEN-END:variables
 }

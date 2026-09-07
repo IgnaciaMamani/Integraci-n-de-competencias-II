@@ -16,6 +16,12 @@
 database/schema.sql
 ```
 
+Tambien pueden usar:
+
+```text
+database/asistencia_mvp_export.sql
+```
+
 4. Ejecutar el script con el rayo.
 
 Eso crea:

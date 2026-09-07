@@ -31,11 +31,11 @@ Cada marca guarda identificador de usuario, tipo de accion, fecha y hora actual.
 
 ### RE-01 Reporte de atrasos
 
-El administrador puede visualizar las entradas registradas despues de las 09:30.
+El administrador puede visualizar las entradas registradas despues de las 09:30 desde el apartado Control de asistencia.
 
 ### RE-02 Reporte de salidas anticipadas
 
-El administrador puede visualizar las salidas registradas antes de las 17:30.
+El administrador puede visualizar las salidas registradas antes de las 17:30 desde el apartado Control de asistencia.
 
 ### RE-03 Reporte de inasistencias
 
@@ -53,9 +53,15 @@ El administrador puede modificar nombre, correo, rol y opcionalmente cambiar la 
 
 El administrador puede eliminar usuarios dejandolos inactivos. Se usa eliminacion logica para conservar el historial de asistencias.
 
-### Registro de ingreso desde administrador
+### Panel de administrador
 
-El administrador puede registrar el ingreso de un usuario indicando la fecha. La hora se toma automaticamente desde el sistema.
+Al iniciar sesion como administrador se muestran tres botones:
+
+- Registrar asistencia.
+- Registrar salida.
+- Gestionar usuarios.
+
+Los dos primeros registran la marca del administrador con fecha y hora actual. El boton Gestionar usuarios abre la ventana de administracion, donde aparece la gestion de usuarios y el apartado Control de asistencia con los reportes.
 
 ## Credenciales de prueba
 
@@ -86,7 +92,7 @@ Usuarios:
 database/schema.sql
 ```
 
-Ese script crea la base de datos `asistencia_mvp`, las tablas `usuarios` y `asistencias`, y datos de prueba.
+Ese script crea la base de datos `asistencia_mvp`, las tablas `usuarios` y `asistencias`, y datos de prueba. Tambien se incluye `database/asistencia_mvp_export.sql` como copia exportable de la base para subir o importar desde MySQL Workbench.
 
 Si usas consola, tambien puedes ejecutar:
 
@@ -254,9 +260,9 @@ WHERE u.rol = 'USUARIO'
   );
 ```
 
-Registro de ingreso desde administrador:
+Registro automatico desde administrador:
 
 ```sql
 INSERT INTO asistencias (usuario_id, tipo, fecha, hora)
-VALUES (?, 'ENTRADA', ?, ?);
+VALUES (?, ?, CURDATE(), CURTIME());
 ```
