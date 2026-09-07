@@ -92,7 +92,7 @@ Usuarios:
 database/schema.sql
 ```
 
-Ese script crea la base de datos `asistencia_mvp`, las tablas `usuarios` y `asistencias`, y datos de prueba.
+Ese script crea la base de datos `asistencia_mvp`, las tablas `usuarios` y `asistencias`, y datos de prueba. Tambien se incluye `database/asistencia_mvp_export.sql` como copia exportable de la base para subir o importar desde MySQL Workbench.
 
 Si usas consola, tambien puedes ejecutar:
 

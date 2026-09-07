@@ -6,7 +6,7 @@ Este proyecto usa MySQL Server Community Edition en `localhost`, puerto `3306`.
 
 1. Abrir MySQL Workbench.
 2. Entrar a la conexion local de MySQL.
-3. Abrir el archivo `schema.sql`.
+3. Abrir el archivo `schema.sql` o `asistencia_mvp_export.sql`.
 4. Ejecutar todo el script.
 5. Confirmar que existe la base de datos:
 
@@ -26,4 +26,4 @@ db.user=asistencia_app
 db.password=asistencia123
 ```
 
-El usuario `asistencia_app` se crea automaticamente al ejecutar `schema.sql` con `root`.
+El usuario `asistencia_app` se crea automaticamente al ejecutar `schema.sql` o `asistencia_mvp_export.sql` con `root`.
