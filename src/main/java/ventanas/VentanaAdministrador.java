@@ -37,7 +37,7 @@ public class VentanaAdministrador extends JFrame {
         this.usuario = usuario;
         setContentPane(new PanelFondo("/imagenes/fondo_administrador.jpg"));
         initComponents();
-        setSize(870, 455);
+        setSize(780, 470);
         setLocationRelativeTo(null);
         etiquetaUsuario.setText("Administrador: " + usuario.getNombre());
         tablaReporte.setAutoCreateRowSorter(true);
@@ -51,14 +51,17 @@ public class VentanaAdministrador extends JFrame {
 
         etiquetaUsuario = new javax.swing.JLabel();
         etiquetaHora = new javax.swing.JLabel();
+        etiquetaAcciones = new javax.swing.JLabel();
         tituloReporte = new javax.swing.JLabel();
         panelTabla = new javax.swing.JScrollPane();
         tablaReporte = new javax.swing.JTable();
+        botonAsistencia = new javax.swing.JButton();
+        botonSalida = new javax.swing.JButton();
+        botonUsuarios = new javax.swing.JButton();
+        etiquetaReportes = new javax.swing.JLabel();
         botonAtrasos = new javax.swing.JButton();
         botonSalidas = new javax.swing.JButton();
         botonInasistencias = new javax.swing.JButton();
-        botonIngreso = new javax.swing.JButton();
-        botonUsuarios = new javax.swing.JButton();
         botonCerrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -70,6 +73,9 @@ public class VentanaAdministrador extends JFrame {
 
         etiquetaHora.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         etiquetaHora.setText("Hora actual: 00:00:00");
+
+        etiquetaAcciones.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        etiquetaAcciones.setText("Acciones de administrador");
 
         tituloReporte.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         tituloReporte.setText("Seleccione un reporte");
@@ -84,6 +90,18 @@ public class VentanaAdministrador extends JFrame {
         ));
         panelTabla.setViewportView(tablaReporte);
 
+        botonAsistencia.setText("Registrar asistencia");
+        botonAsistencia.addActionListener(this::botonAsistenciaActionPerformed);
+
+        botonSalida.setText("Registrar salida");
+        botonSalida.addActionListener(this::botonSalidaActionPerformed);
+
+        botonUsuarios.setText("Gestion de usuarios");
+        botonUsuarios.addActionListener(this::botonUsuariosActionPerformed);
+
+        etiquetaReportes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        etiquetaReportes.setText("Reportes");
+
         botonAtrasos.setText("Reporte de atrasos");
         botonAtrasos.addActionListener(this::botonAtrasosActionPerformed);
 
@@ -92,12 +110,6 @@ public class VentanaAdministrador extends JFrame {
 
         botonInasistencias.setText("Reporte de inasistencias");
         botonInasistencias.addActionListener(this::botonInasistenciasActionPerformed);
-
-        botonIngreso.setText("Registrar ingreso");
-        botonIngreso.addActionListener(this::botonIngresoActionPerformed);
-
-        botonUsuarios.setText("Gestionar usuarios");
-        botonUsuarios.addActionListener(this::botonUsuariosActionPerformed);
 
         botonCerrar.setText("Cerrar sesion");
         botonCerrar.addActionListener(this::botonCerrarActionPerformed);
@@ -111,6 +123,15 @@ public class VentanaAdministrador extends JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(etiquetaUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(etiquetaHora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(etiquetaAcciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(botonAsistencia)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(botonSalida)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(botonUsuarios)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(etiquetaReportes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(tituloReporte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelTabla)
                     .addGroup(layout.createSequentialGroup()
@@ -119,10 +140,6 @@ public class VentanaAdministrador extends JFrame {
                         .addComponent(botonSalidas)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(botonInasistencias)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(botonIngreso)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(botonUsuarios)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(botonCerrar)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -136,16 +153,23 @@ public class VentanaAdministrador extends JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(etiquetaHora)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(etiquetaAcciones)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonAsistencia)
+                    .addComponent(botonSalida)
+                    .addComponent(botonUsuarios))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(etiquetaReportes)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tituloReporte)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
+                .addComponent(panelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonAtrasos)
                     .addComponent(botonSalidas)
                     .addComponent(botonInasistencias)
-                    .addComponent(botonIngreso)
-                    .addComponent(botonUsuarios)
                     .addComponent(botonCerrar))
                 .addGap(14, 14, 14))
         );
@@ -165,9 +189,13 @@ public class VentanaAdministrador extends JFrame {
         cargarInasistencias();
     }//GEN-LAST:event_botonInasistenciasActionPerformed
 
-    private void botonIngresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIngresoActionPerformed
-        registrarIngreso();
-    }//GEN-LAST:event_botonIngresoActionPerformed
+    private void botonAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAsistenciaActionPerformed
+        registrarMarca("Registrar asistencia", "ENTRADA", "Asistencia guardada.", "Esa asistencia ya esta guardada.");
+    }//GEN-LAST:event_botonAsistenciaActionPerformed
+
+    private void botonSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalidaActionPerformed
+        registrarMarca("Registrar salida", "SALIDA", "Salida guardada.", "Esa salida ya esta guardada.");
+    }//GEN-LAST:event_botonSalidaActionPerformed
 
     private void botonUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonUsuariosActionPerformed
         new VentanaUsuarios(usuario).setVisible(true);
@@ -207,7 +235,7 @@ public class VentanaAdministrador extends JFrame {
         }
     }
 
-    private void registrarIngreso() {
+    private void registrarMarca(String titulo, String tipo, String mensajeCorrecto, String mensajeRepetido) {
         try {
             List<Usuario> usuarios = usuariosDatos.obtenerUsuariosActivos();
             if (usuarios.isEmpty()) {
@@ -226,7 +254,7 @@ public class VentanaAdministrador extends JFrame {
             agregarFila(panel, posicion, 0, "Usuario:", listaUsuarios);
             agregarFila(panel, posicion, 1, "Fecha:", campoFecha);
 
-            int opcion = JOptionPane.showConfirmDialog(this, panel, "Registrar ingreso", JOptionPane.OK_CANCEL_OPTION);
+            int opcion = JOptionPane.showConfirmDialog(this, panel, titulo, JOptionPane.OK_CANCEL_OPTION);
             if (opcion != JOptionPane.OK_OPTION) {
                 return;
             }
@@ -234,13 +262,17 @@ public class VentanaAdministrador extends JFrame {
             Usuario seleccionado = (Usuario) listaUsuarios.getSelectedItem();
             LocalDate fecha = LocalDate.parse(campoFecha.getText().trim());
             LocalTime hora = LocalTime.now();
-            asistenciasDatos.registrarIngresoManual(seleccionado.getId(), fecha, hora);
-            JOptionPane.showMessageDialog(this, "Ingreso guardado.");
+            if ("SALIDA".equals(tipo)) {
+                asistenciasDatos.registrarSalidaManual(seleccionado.getId(), fecha, hora);
+            } else {
+                asistenciasDatos.registrarIngresoManual(seleccionado.getId(), fecha, hora);
+            }
+            JOptionPane.showMessageDialog(this, mensajeCorrecto);
         } catch (DateTimeParseException e) {
             JOptionPane.showMessageDialog(this, "Fecha mal escrita.");
         } catch (SQLException e) {
             if ("MARCA_DUPLICADA".equals(e.getSQLState())) {
-                JOptionPane.showMessageDialog(this, "Ese ingreso ya esta guardado.");
+                JOptionPane.showMessageDialog(this, mensajeRepetido);
             } else {
                 Mensajes.mostrarErrorConexion(this);
             }
@@ -283,12 +315,15 @@ public class VentanaAdministrador extends JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAtrasos;
+    private javax.swing.JButton botonAsistencia;
     private javax.swing.JButton botonCerrar;
     private javax.swing.JButton botonInasistencias;
-    private javax.swing.JButton botonIngreso;
+    private javax.swing.JButton botonSalida;
     private javax.swing.JButton botonSalidas;
     private javax.swing.JButton botonUsuarios;
+    private javax.swing.JLabel etiquetaAcciones;
     private javax.swing.JLabel etiquetaHora;
+    private javax.swing.JLabel etiquetaReportes;
     private javax.swing.JLabel etiquetaUsuario;
     private javax.swing.JScrollPane panelTabla;
     private javax.swing.JTable tablaReporte;

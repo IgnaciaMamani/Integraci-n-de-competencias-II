@@ -29,6 +29,16 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="etiquetaUsuario" max="32767" attributes="0"/>
                   <Component id="etiquetaHora" max="32767" attributes="0"/>
+                  <Component id="etiquetaAcciones" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="botonAsistencia" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="botonSalida" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="botonUsuarios" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="0" max="32767" attributes="0"/>
+                  </Group>
+                  <Component id="etiquetaReportes" max="32767" attributes="0"/>
                   <Component id="tituloReporte" max="32767" attributes="0"/>
                   <Component id="panelTabla" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
@@ -37,10 +47,6 @@
                       <Component id="botonSalidas" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="botonInasistencias" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="botonIngreso" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="botonUsuarios" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="botonCerrar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="0" max="32767" attributes="0"/>
@@ -58,16 +64,24 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="etiquetaHora" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
+              <Component id="etiquetaAcciones" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="botonAsistencia" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="botonSalida" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="botonUsuarios" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="etiquetaReportes" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="tituloReporte" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="panelTabla" pref="319" max="32767" attributes="0"/>
+              <Component id="panelTabla" pref="294" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="botonAtrasos" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="botonSalidas" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="botonInasistencias" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="botonIngreso" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="botonUsuarios" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="botonCerrar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
@@ -91,6 +105,12 @@
         <Property name="text" type="java.lang.String" value="Hora actual: 00:00:00"/>
       </Properties>
     </Component>
+    <Component class="javax.swing.JLabel" name="etiquetaAcciones">
+      <Properties>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="text" type="java.lang.String" value="Acciones de administrador"/>
+      </Properties>
+    </Component>
     <Component class="javax.swing.JLabel" name="tituloReporte">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
@@ -107,6 +127,36 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="botonAsistencia">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Registrar asistencia"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonAsistenciaActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="botonSalida">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Registrar salida"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonSalidaActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="botonUsuarios">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Gestion de usuarios"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonUsuariosActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="etiquetaReportes">
+      <Properties>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="text" type="java.lang.String" value="Reportes"/>
+      </Properties>
+    </Component>
     <Component class="javax.swing.JButton" name="botonAtrasos">
       <Properties>
         <Property name="text" type="java.lang.String" value="Reporte de atrasos"/>
@@ -129,22 +179,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonInasistenciasActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="botonIngreso">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Registrar ingreso"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonIngresoActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="botonUsuarios">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Gestionar usuarios"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonUsuariosActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="botonCerrar">
