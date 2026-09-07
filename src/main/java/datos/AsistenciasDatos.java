@@ -21,22 +21,6 @@ public class AsistenciasDatos {
         guardarMarca(usuarioId, tipo, fecha, LocalTime.now());
     }
 
-    public void registrarIngresoManual(int usuarioId, LocalDate fecha, LocalTime hora) throws SQLException {
-        if (existeMarca(usuarioId, "ENTRADA", fecha)) {
-            throw new SQLException("Marca repetida", "MARCA_DUPLICADA");
-        }
-
-        guardarMarca(usuarioId, "ENTRADA", fecha, hora);
-    }
-
-    public void registrarSalidaManual(int usuarioId, LocalDate fecha, LocalTime hora) throws SQLException {
-        if (existeMarca(usuarioId, "SALIDA", fecha)) {
-            throw new SQLException("Marca repetida", "MARCA_DUPLICADA");
-        }
-
-        guardarMarca(usuarioId, "SALIDA", fecha, hora);
-    }
-
     private void guardarMarca(int usuarioId, String tipo, LocalDate fecha, LocalTime hora) throws SQLException {
         String sql = """
                 INSERT INTO asistencias (usuario_id, tipo, fecha, hora)
